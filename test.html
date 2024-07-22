@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 30px;
+        text-align: center;
+      }
+
+      .flex-item-left {
+        background-color: #f1f1f1;
+        padding: 10px;
+        flex: 50%;
+      }
+
+      .flex-item-right {
+        background-color: dodgerblue;
+        padding: 10px;
+        flex: 50%;
+      }
+
+      /* Responsive layout - makes a one column-layout instead of a two-column layout */
+      @media (max-width: 800px) {
+        .flex-item-right,
+        .flex-item-left {
+          flex: 100%;
+        }
+      }
+      img {
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Responsive Flexbox</h1>
+
+    <p>
+      In this example, we change the percentage of flex to create different
+      layouts for different screen sizes.
+    </p>
+    <p>
+      <b
+        >Resize the browser window to see that the direction changes when the
+        screen size is 800px wide or smaller.</b
+      >
+    </p>
+
+    <div class="flex-container">
+      <div class="box">
+        <div class="flex-item-left">
+          <img
+            src="https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZGluZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
+        "
+            alt=""
+          />
+        </div>
+        <div class="flex-item-right">2</div>
+      </div>
+    </div>
+  </body>
+</html>
