@@ -65,11 +65,21 @@ if (today == "sunday" || today == "saturday") {
 // 5. Өгөгдсөн жилийг өндөр жил мөн эсэхийг шалгаад хэрвээ мөн бол өндөр жил мөн үгүй бол үгүй гэж хариулна уу.
 // Өндөр жил гэдэг нь 4 жилд нэг удаа болдог бөгөөд тэр нь 2-р сар 29 хоногтой үед тохиолддог. Энэ нь 4-д хуваагдаж байвал мөн, 100 хуваагдаж байвал өндөр жил биш. Харин 400 жилд бүтнээрээ хуваагдаж байвал мөн.
 const thisYear = prompt("this year  is:");
-if (thisYear % 4 == 0) {
-  console.log("leap year");
+
+if (thisYear % 100 == 0) {
+  console.log("not leap year");
 } else {
-  console.log("is not leap year");
+  if (thisYear % 4 == 0 || thisYear % 400 == 0) {
+    console.log("leap year");
+  } else {
+    console.log("not leap year");
+  }
 }
+// if (thisYear % 4 == 0) {
+//   console.log("leap year");
+// } else {
+//   console.log("is not leap year");
+// }
 // 6. Багш сурагчдын эцсийн шалгалтын дүнг дүгнэхээр болжээ
 // 6.1 Бат - 67 оноо, Болд - 59 оноо авчээ.
 // 6.2 Шалгалтын онооноос хамааран багш тодорхой дүнгийн жагсаалт гаргах ёстой бөгөөд энэ нь
