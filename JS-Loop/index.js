@@ -28,7 +28,7 @@ for (let i = 1; i <= N; i++) {
 }
 console.log(sum1);
 // 6. Өгөгдсөн тоог анхны мөн эсэхийг олох программ бич
-num = 3;
+num = 2;
 let isPrime;
 if (num == 1) {
   console.log("1 is either not prime or not prime");
@@ -141,16 +141,17 @@ console.log(rngNumber);
 
 let guessedNumber = prompt("guess the number:");
 
-while (guessedNumber != rngNumber) {
-  if (rngNumber > guessedNumber) {
-    guessedNumber = prompt(" ur number is lower try again:");
-  } else {
-    guessedNumber = prompt(" ur number is higher try again:");
-  }
-}
-if (guessedNumber == rngNumber) {
-  console.log("congrats");
-}
+// if (guessedNumber == rngNumber) {
+//   console.log("congrats");
+// } else {
+//   while (guessedNumber != rngNumber) {
+//     if (rngNumber > guessedNumber) {
+//       guessedNumber = prompt(" ur number is lower try again:");
+//     } else {
+//       guessedNumber = prompt(" ur number is higher try again:");
+//     }
+//   }
+// }
 
 // 16. Давхар давталт 1
 // Бүхэл тоо өгөгдөнө. Жишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.
@@ -161,9 +162,14 @@ if (guessedNumber == rngNumber) {
 //  - 1 2 3
 //  - 1 2 3 4
 //  - 1 2 3 4 5
-let input = 1;
+let input = 5;
 let output = "";
-output += 2;
+for (let i = 1; i <= input; i++) {
+  for (j = 1; j <= i; j++) {
+    output += j + " ";
+  }
+  output += "\n";
+}
 console.log(output);
 // 17. Давхар давталт 2
 // Бүхэл тоо өгөгдөнө. Жишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.
@@ -174,19 +180,40 @@ console.log(output);
 // - 5 4 3
 // - 5 4
 // - 5
-
+let input1 = 5;
+let output1 = "";
+for (let i = input1; i >= 1; i--) {
+  for (j = i; j >= 1; j--) {
+    output1 += j + " ";
+  }
+  output1 += "\n";
+}
+console.log(output1);
 // 18. Multiplication Tables
 // Write a for loop that will iterate from 0 to 10. For each iteration of the for loop, it will multiply the number by 9 and log the result
 // (e.g. "2 * 9 = 18").
 // Bonus: Use a nested for loop to show the tables for every multiplier from
 // 1 to 10 (100 results total).
-
+let result = "";
+for (let i = 1; i <= 10; i++) {
+  for (let j = 1; j <= 10; j++) {
+    result += i * j + " ";
+  }
+}
+console.log(result);
 // 19. Using a for loop print all even numbers up to and including n. Don’t include 0.
 
 // let n1 = 22;
 // Example output:
 // 2 4 6 8 10 12 14 16 18 20 22 OR each item on a new line
-
+let n19 = 22;
+let n19Output = "";
+for (let i = 1; i <= n19; i++) {
+  if (i % 2 == 0) {
+    n19Output += i + " ";
+  }
+}
+console.log(n19Output);
 // 20. Given a string change the every second letter to an uppercase ‘Z’. Assume
 // there are no space.
 
@@ -194,3 +221,15 @@ console.log(output);
 // Example output:
 // jZvZsZrZpZ OR each letter on a new line
 // HINT: You can use  if((i+1) % 2 == 0) to check for even indexes
+let str1 = "javascript";
+let str1Output = "";
+for (let i = 1; i <= str1.toString().length; i++) {
+  a = i - 1;
+  b = i;
+  if ((i + 1) % 2 == 1) {
+    str1Output += "Z";
+  } else {
+    str1Output += str1.slice(a, b);
+  }
+}
+console.log(str1Output);
