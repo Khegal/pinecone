@@ -107,7 +107,34 @@ console.log(isVowel("a"));
 // rockPaperScissors('rock', 'scissors') --> 'player 1'
 // rockPaperScissors('rock', 'paper') --> 'player 2'
 // rockPaperScissors('paper', 'paper') --> 'draw'
-
+function rockPaperScissors(a, b) {
+  if (a.toLowerCase() == "rock") {
+    if (b.toLowerCase() == "rock") {
+      return "draw";
+    } else if (b.toLowerCase() == "scissors") {
+      return "p1 ";
+    } else if (b.toLowerCase() == "paper") {
+      return "p2 ";
+    }
+  } else if (a.toLowerCase() == "paper") {
+    if (b.toLowerCase() == "rock") {
+      return "p1";
+    } else if (b.toLowerCase() == "scissors") {
+      return "p2";
+    } else if (b.toLowerCase() == "paper") {
+      return "draw";
+    }
+  } else if (a.toLowerCase() == "scissors") {
+    if (b.toLowerCase() == "rock") {
+      return "p2";
+    } else if (b.toLowerCase() == "scissors") {
+      return "draw";
+    } else if (b.toLowerCase() == "paper") {
+      return "p1";
+    }
+  }
+}
+console.log(rockPaperScissors("scissors", "rock"));
 // Exercise 6
 
 // Write a function "numberJoinerWhile" which is given a start number and an end number.
