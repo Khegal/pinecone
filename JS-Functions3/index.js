@@ -11,14 +11,33 @@
 // Examples:
 // tipAmount(100, 'good') --> 20
 // tipAmount(40, 'fair') --> 6
-
+function tipAmount(a, b) {
+  if (b == "good") {
+    return a * 0.2;
+  } else if (b == "fair") {
+    return a * 0.15;
+  } else if (b == "poor") {
+    return a * 0.1;
+  }
+}
+console.log(tipAmount(100, "poor"));
 // Exercise 2
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "totalAmount" that takes the same arguments as "tipAmount"
 // except it returns the total as the tip amount plus the bill amount.
 // Hint: this function may use "tipAmount" internally
-
+function totalAmount(a, b) {
+  let totalAmount = a;
+  if (b == "good") {
+    return totalAmount + a * 0.2;
+  } else if (b == "fair") {
+    return totalAmount + a * 0.15;
+  } else if (b == "poor") {
+    return totalAmount + a * 0.1;
+  }
+}
+console.log(totalAmount(100, "fair"));
 // Examples:
 // totalAmount(100, 'good') --> 120
 // totalAmount(40, 'fair') --> 46
@@ -29,7 +48,17 @@
 // Write a function "splitAmount" that takes a bill amount, the level of service,
 // and the number of people to split the bill between. It should return the final
 // amount for each person.
-
+function splitAmount(a, b, c) {
+  let totalAmount = a;
+  if (b == "good") {
+    return (totalAmount + a * 0.2) / c;
+  } else if (b == "fair") {
+    return (totalAmount + a * 0.15) / c;
+  } else if (b == "poor") {
+    return (totalAmount + a * 0.1) / c;
+  }
+}
+console.log(splitAmount(100, "fair", 2));
 // Examples:
 // splitAmount(100, 'good', 5) --> 24
 // splitAmount(40, 'fair', 2) --> 23
@@ -39,7 +68,25 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "isVowel" that takes a character (i.e. a string of length 1)
 // as input and returns true if it is a vowel, false otherwise.
-//
+function isVowel(a) {
+  if (a.length == 1) {
+    if (
+      a.toLowerCase() == "a" ||
+      a.toLowerCase() == "e" ||
+      a.toLowerCase() == "i" ||
+      a.toLowerCase() == "o" ||
+      a.toLowerCase() == "u" ||
+      a.toLowerCase() == "y"
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+console.log(isVowel("a"));
 // Useful resource:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
 //
