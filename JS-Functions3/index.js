@@ -156,7 +156,28 @@ console.log(rockPaperScissors("scissors", "rock"));
 // numberJoinerFancy(1, 10) --> '1_2_3_4_5_6_7_8_9_10'
 // numberJoinerFancy(1, 5, '~') --> 1~2~3~4~5
 // numberJoinerFancy(3, 6, '***BANANAS***') --> 1***BANANAS***2***BANANAS***3
+function numberJoinerFancy(a, b, c) {
+  let result = "";
 
+  for (let i = a; i <= b; i++) {
+    if (c == null) {
+      if (i == b) {
+        result += i;
+      } else {
+        result += i + "_";
+      }
+    } else {
+      if (i == b) {
+        result += i;
+      } else {
+        result += i + c;
+      }
+    }
+  }
+
+  return result;
+}
+console.log(numberJoinerFancy(1, 4, "asd"));
 // Exercise 7
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -164,7 +185,14 @@ console.log(rockPaperScissors("scissors", "rock"));
 //
 // Example:
 // reverse("skoob") --> "books"
-
+function reverse(a) {
+  if (typeof a == "number") {
+    return Number(a.toString().split("").reverse().join(""));
+  } else {
+    return a.split("").reverse().join("");
+  }
+}
+console.log(reverse(12312));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "findLongestWord" that takes a string of words and returns
 // the longest word in that string. If there are multiple words with the same
@@ -172,7 +200,17 @@ console.log(rockPaperScissors("scissors", "rock"));
 //
 // Example:
 // findLongestWord('a book full of dogs') --> 'book'
-
+function findLongestWord(str) {
+  let strSplit = str.split(" ");
+  let longestWord = "";
+  for (let i = 0; i < strSplit.length; i++) {
+    if (strSplit[i].length > longestWord.length) {
+      longestWord = strSplit[i];
+    }
+  }
+  return longestWord;
+}
+console.log(findLongestWord("a book full of dogs"));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function called "nicer"
 // It should clean up the language in its input sentence.
@@ -181,7 +219,24 @@ console.log(rockPaperScissors("scissors", "rock"));
 // Example:
 // nicer('mom get the heck in here and bring me a darn sandwich.')
 // > 'mom get the in here and bring me a sandwich.'
-
+function nicer(str) {
+  let strSplit = str.split(" ");
+  let nicerStr = "";
+  for (let i = 0; i < strSplit.length; i++) {
+    if (
+      strSplit[i] == "heck" ||
+      strSplit[i] == "darn" ||
+      strSplit[i] == "dang" ||
+      strSplit[i] == "crappy"
+    ) {
+      strSplit[i] = "";
+    } else {
+      nicerStr += strSplit[i] + " ";
+    }
+  }
+  return nicerStr;
+}
+console.log(nicer("mom get the heck in here and bring me a darn sandwich."));
 // Exercise 8
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,7 +247,16 @@ console.log(rockPaperScissors("scissors", "rock"));
 // Examples:
 // capitalizeAll('hello world') --> 'Hello World'
 // capitalizeAll('every day is like sunday') --> 'Every Day Is Like Sunday'
-
+function capitalizeAll(a) {
+  let strSplit = a.split(" ");
+  let capitalized = "";
+  for (let i = 0; i < strSplit.length; i++) {
+    let remainingLetters = strSplit[i].slice(1);
+    capitalized += strSplit[i][0].toUpperCase() + remainingLetters + " ";
+  }
+  return capitalized;
+}
+console.log(capitalizeAll("asd asd"));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function called "split" that does the same thing as String.split
 // It should take two inputs: (1) a string and (2) a delimiter string
@@ -203,18 +267,38 @@ console.log(rockPaperScissors("scissors", "rock"));
 // split('a-b-c', '-') --> ['a', 'b', 'c']
 // split('APPLExxBANANAxxCHERRY', 'xx') --> ['APPLE', 'BANANA', 'CHERRY']
 // split('xyz', 'r') --> ['xyz']
-
+function split(str, splitBy) {
+  let strSplit = str.split(splitBy);
+  return strSplit;
+}
+console.log(split("APPLExxBANANAxxCHERRY", "xx"));
 // Exercise 9
 
 // Write a function "max" that takes an array of numbers returns the highest
 // number in the array.
-
+function max(arrOfNumber) {
+  let highestNumber = 0;
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    if (highestNumber < arrOfNumber[i]) {
+      highestNumber = arrOfNumber[i];
+    }
+  }
+  return highestNumber;
+}
+console.log(max([1, 1, 22]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "sumNumbers" which is given an array of numbers and returns
 // the sum of the numbers.
 // Example:
 // sumNumbers([1, 4, 8]) --> 13
-
+function sumNumbers(arrOfNumber) {
+  let sum = 0;
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    sum += arrOfNumber[i];
+  }
+  return sum;
+}
+console.log(sumNumbers([1, 1, 22]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "positives" which is given an array of numbers and
 // returns a new array containing only the positive numbers within the given array.
@@ -222,17 +306,44 @@ console.log(rockPaperScissors("scissors", "rock"));
 // positives([1, -3, 5, -3, 0]) --> [1, 5]
 // positives([1, 2, 3]) --> [1, 2, 3]
 // positives([-1, -2, -3]) --> []
-
+function positives(arrOfNumber) {
+  let positiveNumbers = [];
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    if (arrOfNumber[i] >= 0) {
+      positiveNumbers.push(arrOfNumber[i]);
+    }
+  }
+  return positiveNumbers;
+}
+console.log(positives([1, 1, -12]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "evens" which takes an array of numbers and returns a new
 // array containing only the even numbers in the given array.
 // Hint: you may want to re-use your "isEven" function from 01-predicate-functions.js
-
+function evens(arrOfNumber) {
+  let evenNumbers = [];
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    if (arrOfNumber[i] % 2 == 0) {
+      evenNumbers.push(arrOfNumber[i]);
+    }
+  }
+  return evenNumbers;
+}
+console.log(evens([1, 12, -12]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "odds" which takes an array of numbers and returns a new
 // array containing only the odd numbers in the given array.
 // Hint: you may want to re-use your "isOdd" function from 01-predicate-functions.js
-
+function odds(arrOfNumber) {
+  let oddNumbers = [];
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    if (arrOfNumber[i] % 2 == 1) {
+      oddNumbers.push(arrOfNumber[i]);
+    }
+  }
+  return oddNumbers;
+}
+console.log(odds([1, 12, -12]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "integers" which takes an array of numbers and returns a new
 // array containing only the integers in the given array.
@@ -241,14 +352,33 @@ console.log(rockPaperScissors("scissors", "rock"));
 //
 // Example:
 // integers([3.14, 2.4, 7, 8.1, 2]) --> [7, 2]
-
+function integers(arrOfNumber) {
+  let integerNumber = [];
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    let numberToString = arrOfNumber[i].toString();
+    for (let j = 0; j < numberToString.split().length; j++) {
+      if (numberToString.split(".").length < 2) {
+        integerNumber.push(arrOfNumber[i]);
+      }
+    }
+  }
+  return integerNumber;
+}
+console.log(integers([1, 12, -1.12, 1.1]));
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Write a function "squareDance" which takes an array of numbers and returns a
 // new array containing the result of squaring each of the numbers in the given array.
 //
 // Example:
 // squareDance([1, 2, 3]) --> [1, 4, 9]
-
+function squareDance(arrOfNumber) {
+  squaredNumbers = [];
+  for (let i = 0; i < arrOfNumber.length; i++) {
+    squaredNumbers.push(arrOfNumber[i] * arrOfNumber[i]);
+  }
+  return squaredNumbers;
+}
+console.log(squareDance([1, 12, 2]));
 //Exercise
 
 // Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
@@ -260,7 +390,21 @@ console.log(rockPaperScissors("scissors", "rock"));
 // Input: nums = [2,7,11,15], target = 9
 // Output: [0,1]
 // Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-
+function targetFinder(numbers, target) {
+  let result = [];
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] <= target) {
+      for (let j = 0; j < numbers.length; j++) {
+        if (numbers[i] + numbers[j] == target) {
+          result.push(i, j);
+          for (let k = 0; k < result.length; k++) {}
+        }
+      }
+    }
+  }
+  return result;
+}
+console.log(targetFinder([2, 8, 12, 15], 14));
 //Exercise
 
 // Given an integer x, return true if x is palindrome integer.
