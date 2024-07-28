@@ -416,7 +416,18 @@ console.log(targetFinder([2, 8, 12, 15], 14));
 // Input: x = 121
 // Output: true
 // Explanation: 121 reads as 121 from left to right and from right to left.
-
+function isPalindrome(number) {
+  let numberRev = "";
+  for (let i = number.toString().length - 1; i >= 0; i--) {
+    numberRev += number.toString()[i];
+  }
+  if (numberRev == number) {
+    return true;
+  } else {
+    return false;
+  }
+}
+console.log(isPalindrome(1213));
 //Exercise
 
 // Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
@@ -452,3 +463,15 @@ console.log(targetFinder([2, 8, 12, 15], 14));
 
 // Input: s = "race"
 // Output: false
+function isPalindromesTR(str) {
+  let strRev = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    strRev += str[i];
+  }
+  if (str == strRev) {
+    return true;
+  } else {
+    return false;
+  }
+}
+console.log(isPalindromesTR("dad"));
