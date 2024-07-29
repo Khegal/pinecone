@@ -55,11 +55,30 @@ function winner(array) {
 }
 console.log(winner(fifaData));
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
-
+function getFinals(arr) {
+  let inFinal = [];
+  arr.forEach((element) => {
+    if (element.Stage == "Final") {
+      inFinal.push(element);
+    }
+  });
+  return inFinal;
+}
+console.log(getFinals(fifaData));
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
-
+function getYear(arr) {
+  let year = [];
+  arr.forEach((element) => {
+    year.push(element.Year);
+  });
+  return year;
+}
+console.log(getYear(getFinals(fifaData)));
 /* Task 5: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */
-
+function getWinners(arr) {
+  let winnders = [];
+  arr.forEach((element) => {});
+}
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
 Parameters: 
