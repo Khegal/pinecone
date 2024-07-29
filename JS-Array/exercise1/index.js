@@ -24,12 +24,15 @@ console.log(sortedArray([5, 7, 10, -10, 56]));
 // Sample numbers : -5, -2, -6, 0, -1
 // Output : 0
 function sortNumber(arr) {
-  let sorted = arr.sort(function (a, b) {
-    return a - b;
+  let highestNumber = arr[0];
+  arr.forEach((element) => {
+    if (highestNumber < element) {
+      highestNumber = element;
+    }
   });
-  return sorted[sorted.length - 1];
+  return highestNumber;
 }
-console.log(sortNumber([-5, -2, -6, 0, -1]));
+console.log(sortNumber([-5, -2, -6, 0, 71, -1]));
 
 // Exercise 3
 
@@ -55,10 +58,13 @@ console.log(alphabeticalOrder("hello"));
 // > console.log(findSmallest([30, 45, 60, 7]));
 // > 1
 function findSmallest(arr) {
-  let sorted = arr.sort(function (a, b) {
-    return a - b;
+  let lowestNumber = arr[0];
+  arr.forEach((element) => {
+    if (lowestNumber > element) {
+      lowestNumber = element;
+    }
   });
-  return sorted[0];
+  return lowestNumber;
 }
 console.log(findSmallest([30, 45, 60, 7]));
 // Exercise 5
@@ -69,11 +75,11 @@ console.log(findSmallest([30, 45, 60, 7]));
 // > [ 2, 4, 6 ]
 function evenOnly(arr) {
   let evens = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] % 2 == 0) {
-      evens.push(arr[i]);
+  arr.forEach((element) => {
+    if (element % 2 == 0) {
+      evens.push(element);
     }
-  }
+  });
   return evens;
 }
 console.log(evenOnly([1, 2, 3, 4, 5, 6]));
@@ -85,13 +91,13 @@ console.log(evenOnly([1, 2, 3, 4, 5, 6]));
 // > console.log(numbersOnly(['text', 3, 7, 'github', 13, 'dev']));
 // > [ 3, 7, 13 ]
 function numbersOnly(arr) {
-  let evens = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (typeof arr[i] == "number") {
-      evens.push(arr[i]);
+  let numbersOnly = [];
+  arr.forEach((element) => {
+    if (typeof element == "number") {
+      numbersOnly.push(element);
     }
-  }
-  return evens;
+  });
+  return numbersOnly;
 }
 console.log(numbersOnly(["text", 3, 7, "github", 13, "dev"]));
 // Exercise 7
@@ -106,7 +112,34 @@ console.log(numbersOnly(["text", 3, 7, "github", 13, "dev"]));
 // Example:
 // > console.log(minMaxLengthAverage([7, 13, 3, 77, 100]));
 // > [ 3, 100, 5, 40 ]
-function minMaxLengthAverage(arr) {}
+function minMaxLengthAverage(arr) {
+  let elements = [];
+
+  let lowestElement = arr[0];
+  arr.forEach((element) => {
+    if (lowestElement > element) {
+      lowestElement = element;
+    }
+  });
+  elements.push(lowestElement);
+  let highestElement = arr[0];
+  arr.forEach((element) => {
+    if (highestElement < element) {
+      highestElement = element;
+    }
+  });
+  elements.push(highestElement);
+
+  elements.push(arr.length);
+
+  let sum = 0;
+  arr.forEach((element) => {
+    sum += element;
+  });
+  elements.push(sum / arr.length);
+
+  return elements;
+}
 console.log(minMaxLengthAverage([7, 13, 3, 77, 100]));
 // Exercise 8
 
@@ -116,7 +149,10 @@ console.log(minMaxLengthAverage([7, 13, 3, 77, 100]));
 // Example:
 // > countWords('hello from kbpsystem!');
 // > 3
-
+function countWords(arr) {
+  return arr.split(" ").length;
+}
+console.log(countWords("hello from kbpsystem!"));
 // Exercise 9
 
 // Multiply by Length
@@ -125,7 +161,15 @@ console.log(minMaxLengthAverage([7, 13, 3, 77, 100]));
 // Example:
 // > MultiplyByLength([4,1,1]);
 // > [12, 3, 3]
-
+function multiplyByLength(arr) {
+  let length = arr.length;
+  let result = [];
+  arr.forEach((element) => {
+    result.push(element * length);
+  });
+  return result;
+}
+console.log(multiplyByLength([4, 1, 1]));
 // Exercise 10
 
 // Find the correct Index location
@@ -134,3 +178,10 @@ console.log(minMaxLengthAverage([7, 13, 3, 77, 100]));
 // Example:
 // > console.log(findIndex(['github', 'gitlab', 'bitbucket', 'apollo'], 'gitlab'));
 // > 1
+
+function findIndex(arr, str) {
+  let result = arr.findIndex((element) => element === str);
+  return result;
+}
+
+console.log(findIndex(["github", "gitlab", "bitbucket", "apollo"], "gitlab"));

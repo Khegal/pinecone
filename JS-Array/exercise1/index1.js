@@ -84,15 +84,33 @@ console.log(displayNames(zooAnimals));
 /* Request 2: .map()
 The zoos need a list of all their animal's names (animal_name only) converted to lower case. Using map, create a new array of strings named lowCaseAnimalNames, each string following this pattern: "jackal, asiatic". Log the resut.
 */
-
+function animalNamesToLowerCase(arr) {
+  let lowCaseAnimalNames = [];
+  arr.map((element) => {
+    lowCaseAnimalNames.push(element.animal_name.toLowerCase());
+  });
+  return lowCaseAnimalNames;
+}
+console.log(animalNamesToLowerCase(zooAnimals));
 /* Request 3: .filter() 
 The zoos are concerned about animals with a lower population count. Using filter, create a new array of objects called lowPopulationAnimals which contains only the animals with a population less than 5.
 */
-
+function lowPopulation(arr) {
+  let lowPopulationAnimals = [];
+  lowPopulationAnimals = arr.filter((arr) => arr.population < 5);
+  return lowPopulationAnimals;
+}
+console.log(lowPopulation(zooAnimals));
 /* Request 4: .reduce() 
 The zoos need to know their total animal population across the United States. Find the total population from all the zoos using the .reduce() method. Remember the reduce method takes two arguments: a callback (which itself takes two args), and an initial value for the count.
 */
-
+function totalPopulation(arr) {
+  const totalPopulation = arr.reduce((accumulator, zoo) => {
+    return accumulator + zoo.population;
+  }, 0);
+  return totalPopulation;
+}
+console.log(totalPopulation(zooAnimals));
 // ==== Callbacks ====
 
 /* Step 1: Create a higher-order function
@@ -110,8 +128,5 @@ The zoos need to know their total animal population across the United States. Fi
 
 /* Step 3: Check your work by un-commenting the following calls to consume(): */
 // 4
-// 160 // Hello Mary Poppins, nice to meet you!
-
-/*
-
-*/
+// 160
+// Hello Mary Poppins, nice to meet you!
