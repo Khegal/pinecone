@@ -36,3 +36,59 @@ person.street = "who knows";
 person.city = "Ub";
 person.country = "Mongolia";
 console.log(person.address);
+// 4. Create an object called book with properties title, author, and year.
+// Delete the year property from the book object.
+// Log the updated book object.
+let book = {
+  title: "Alphabets",
+  auther: " j.k rouling",
+  year: 2000,
+};
+delete book.year;
+console.log(book);
+// 5. Create an object called movie with properties title, director, and year.
+// Log all the keys and values of the movie object to the console.
+let movie = {
+  title: "Harry potter",
+  director: "jk.rouling",
+  year: "1999",
+};
+console.log(movie);
+// 6. Create two objects representing two people's details.
+// Merge them into a single object.
+// Log the merged object.
+let person1 = {
+  name: "kehrlen",
+  age: "17",
+};
+let person2 = {
+  name: "suvd",
+  age: "12",
+};
+let combined = Object.assign(person1, person2);
+console.log(combined);
+// 7. Create an object data with properties firstName, lastName, and age.
+// Rename the firstName property to name.
+// Log the updated data object.
+let user = {
+  firstName: "kherlen",
+  lastName: "gurragchaa",
+  age: 123,
+};
+user["name"] = user["firstName"];
+
+delete user["firstName"];
+
+console.log(user);
+// 8. Create an object userProfile with properties username, email, and age.
+// Write code to check if email exists and log it; if it doesn't, assign a default value and log the updated object.
+let userProfile = {
+  userName: " Khegal",
+  email: "khegal95@gmail.com",
+  age: "14",
+};
+if ("khegal95@gmail.com" == userProfile.email) {
+  console.log(true);
+} else {
+  console.log(false);
+}

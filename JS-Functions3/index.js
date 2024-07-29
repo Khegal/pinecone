@@ -445,7 +445,28 @@ console.log(isPalindrome(1213));
 
 // Input: s = "()[]{}"
 // Output: true
-
+function checkBrackets(str) {
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == "(" && str[i + 1] == ")") {
+      for (let j = 0; j < str.length; j++) {
+        if (str[j] == "[" && str[j + 1] == "]") {
+          for (let k = 0; k < str.length; k++) {
+            if (str[k] == "{" && str[k + 1] == "}") {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        } else {
+          return false;
+        }
+      }
+    } else {
+      return false;
+    }
+  }
+}
+console.log(checkBrackets("("));
 //Exercise
 
 // write a JavaScript function that checks if the string is palindrome or not.
