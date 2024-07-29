@@ -3,15 +3,57 @@ import { fifaData } from "./fifa.js";
 console.log("its working");
 // ⚽️ M  V P ⚽️ //
 
-/* Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data 
+// Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data
 
-(a) Home Team name for 2014 world cup final
-(b) Away Team name for 2014 world cup final
-(c) Home Team goals for 2014 world cup final
-
-(d) Away Team goals for 2014 world cup final
-(e) Winner of 2014 world cup final */
-
+// (a) Home Team name for 2014 world cup final
+function returnHomeTeamName(array) {
+  let homeTeamNames = [];
+  array.forEach((element) => {
+    homeTeamNames.push(element["Home Team Name"]);
+  });
+  return homeTeamNames;
+}
+console.log(returnHomeTeamName(fifaData));
+// (b) Away Team name for 2014 world cup final
+function returAwayTeamName(array) {
+  let awayTeamName = [];
+  array.forEach((element) => {
+    awayTeamName.push(element["Away Team Name"]);
+  });
+  return awayTeamName;
+}
+console.log(returAwayTeamName(fifaData));
+// (c) Home Team goals for 2014 world cup final
+function returnHomeTeamGoals(array) {
+  let homeTeamGoals = [];
+  array.forEach((element) => {
+    homeTeamGoals.push(element["Home Team Goals"]);
+  });
+  return homeTeamGoals;
+}
+console.log(returnHomeTeamGoals(fifaData));
+// (d) Away Team goals for 2014 world cup final
+function returAwayTeamGoals(array) {
+  let awayTeamGoals = [];
+  array.forEach((element) => {
+    awayTeamGoals.push(element["Away Team Goals"]);
+  });
+  return awayTeamGoals;
+}
+console.log(returAwayTeamGoals(fifaData));
+// (e) Winner of 2014 world cup final
+function winner(array) {
+  let winners = [];
+  array.forEach((element) => {
+    if (element["Home Team Goals"] > element["Away Team Goals"]) {
+      winners.push(element["Home Team Name"]);
+    } else {
+      winners.push(element["Away Team Name"]);
+    }
+  });
+  return winners;
+}
+console.log(winner(fifaData));
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
