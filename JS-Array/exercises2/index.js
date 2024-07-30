@@ -147,21 +147,103 @@ console.log(getCountryWins(fifaData, "ENG"));
 
 /* Stretch 3: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
 
-function getGoals() {}
+function getGoals(data) {
+  let teamStats = {};
 
-getGoals();
+  data.forEach((match) => {
+    let homeTeam = match["Home Team Name"];
+    let awayTeam = match["Away Team Name"];
+    let homeGoals = match["Home Team Goals"];
+    let awayGoals = match["Away Team Goals"];
+
+    if (!teamStats[homeTeam]) {
+      teamStats[homeTeam] = { totalGoals: 0, appearances: 0 };
+    }
+    teamStats[homeTeam].totalGoals += homeGoals;
+    teamStats[homeTeam].appearances += 1;
+
+    if (!teamStats[awayTeam]) {
+      teamStats[awayTeam] = { totalGoals: 0, appearances: 0 };
+    }
+    teamStats[awayTeam].totalGoals += awayGoals;
+    teamStats[awayTeam].appearances += 1;
+  });
+
+  let maxAverageGoals = 0;
+  let teamWithMaxAverage = "";
+
+  const teams = [];
+  for (let team in teamStats) {
+    teams.push(team);
+  }
+
+  teams.forEach((team) => {
+    let averageGoals = teamStats[team].totalGoals / teamStats[team].appearances;
+
+    if (averageGoals > maxAverageGoals) {
+      maxAverageGoals = averageGoals;
+      teamWithMaxAverage = team;
+    }
+  });
+
+  return { team: teamWithMaxAverage, averageGoals: maxAverageGoals };
+}
+
+// Example usage
+console.log(getGoals(getFinals(fifaData)));
 
 /* Stretch 4: Write a function called badDefense() that accepts a parameter `data` and calculates the team with the most goals scored against them per appearance (average goals against) in the World Cup finals */
 
-function badDefense(/* code here */) {
-  /* code here */
+function badDefense(data) {
+  let teamDefenseStats = {};
+
+  data.forEach((match) => {
+    let homeTeam = match["Home Team Name"];
+    let awayTeam = match["Away Team Name"];
+    let homeGoals = match["Home Team Goals"];
+    let awayGoals = match["Away Team Goals"];
+
+    if (!teamDefenseStats[homeTeam]) {
+      teamDefenseStats[homeTeam] = { goalsAgainst: 0, appearances: 0 };
+    }
+    teamDefenseStats[homeTeam].goalsAgainst += awayGoals;
+    teamDefenseStats[homeTeam].appearances += 1;
+
+    if (!teamDefenseStats[awayTeam]) {
+      teamDefenseStats[awayTeam] = { goalsAgainst: 0, appearances: 0 };
+    }
+    teamDefenseStats[awayTeam].goalsAgainst += homeGoals;
+    teamDefenseStats[awayTeam].appearances += 1;
+  });
+
+  let maxAverageGoalsAgainst = 0;
+  let teamWithMaxAverageDefense = "";
+
+  const statsArray = Object.values(teamDefenseStats);
+
+  statsArray.forEach((stats, index) => {
+    let averageGoalsAgainst = stats.goalsAgainst / stats.appearances;
+
+    const teamName = Object.keys(teamDefenseStats)[index];
+
+    if (averageGoalsAgainst > maxAverageGoalsAgainst) {
+      maxAverageGoalsAgainst = averageGoalsAgainst;
+      teamWithMaxAverageDefense = teamName;
+    }
+  });
+
+  return {
+    team: teamWithMaxAverageDefense,
+    averageGoalsAgainst: maxAverageGoalsAgainst,
+  };
 }
 
-badDefense();
+// Example usage
+console.log(badDefense(getFinals(fifaData)));
 
 /* If you still have time, use the space below to work on any stretch goals of your chosing as listed in the README file. */
 
-const array = [
+let array = [
   { name: "Uruguay", goal: 4 },
   { name: "Italy", goal: 2 },
   { name: "Italy", goal: 4 },
@@ -202,6 +284,6 @@ const array = [
   { name: "Argentina", goal: 0 },
 ];
 
-const names = array.map((data) => {
+let names = array.map((data) => {
   return Object.values(data.name);
 });

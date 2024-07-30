@@ -103,7 +103,7 @@ Hint: You can use .splice() for this
 
 */
 function removeFlavorByName(arr, flavor) {
-  const index = arr.indexOf(flavor);
+  let index = arr.indexOf(flavor);
   if (index !== -1) {
     arr.splice(index, 1);
   }
@@ -117,8 +117,9 @@ Your function should accept:
 2 arguments 1 for your new array and one for your original array
 
 and should return a new array that is identical to the old array. You can name the new array however you'd like. */
+
+let copyOfOriginalFlavors = [];
 function copy(originalArray) {
-  let copyOfOriginalFlavors = [];
   copyOfOriginalFlavors = originalArray;
   copyOfOriginalFlavors.shift();
   copyOfOriginalFlavors.push("Vanilla", "Vanilla Burnt Almond");
@@ -160,10 +161,18 @@ Your function should accept:
 and should return the average number of words per item in the array. 
 
 For example, getAverageWordLength(originalFlavors) should return a number between 0 and 3. */
+function getAverageWordLength(arr) {
+  let totalWords = 0;
 
-function getAverageWordLength(/*code here*/) {
-  /*code here*/
+  for (let i = 0; i < arr.length; i++) {
+    totalWords += arr[i].split(" ").length;
+  }
+
+  let average = totalWords / arr.length;
+
+  return average;
 }
+console.log(getAverageWordLength(originalFlavors));
 
 /* STRETCH 2: Baskin Robins now offers new flavors, seasonal flavors, and even regional flavors. Write a function that will randomly select a total of 31 flavors from originalFlavors, currentFlavors, seasonalFlavors, and regionalFlavors.
 
@@ -252,6 +261,31 @@ var regionalFlavors = [
   "Caramel 'n' Cookies",
 ];
 
-function getRandomFlavors(/*code here*/) {
-  /*code here*/
+function getRandomFlavors(
+  originalFlavors,
+  newFlavors,
+  seasonalFlavors,
+  regionalFlavors
+) {
+  let allFlavors = [
+    ...originalFlavors,
+    ...newFlavors,
+    ...seasonalFlavors,
+    ...regionalFlavors,
+  ];
+
+  let shuffledFlavors = allFlavors.sort(() => 0.5 - Math.random());
+
+  let randomFlavors = [...new Set(shuffledFlavors)].slice(0, 31);
+
+  return randomFlavors;
 }
+
+console.log(
+  getRandomFlavors(
+    originalFlavors,
+    newFlavors,
+    seasonalFlavors,
+    regionalFlavors
+  )
+);
