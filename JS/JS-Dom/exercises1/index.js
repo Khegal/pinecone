@@ -24,11 +24,22 @@ const modal = null;
 //      - HTML
 //      - The DOM's element.onclick
 //      - element.addEventListener()
-
+// document.getElementById("launchButton").onclick = function () {
+//   alert("clicked");
+// };
+// document.getElementById("launchButton").addEventListener("click", function () {
+//   alert("clickeeededd");
+// });
 // 👉 TASK 3- Create a function that launches!
 // It should open the confirmation modal.
 // Add it as an event listener for click events on the launch button.
-
+//JavaScript
+document
+  .getElementsByClassName("launchButton")
+  .addEventListener("click", function () {
+    let element = document.querySelector(".modal.off");
+    element.classList.replace("off", "");
+  });
 // 👉 TASK 4- Create a function to confirm the launch.
 // It should close the modal and display a success report.
 // Add it as a listener for clicks on the confirmation button.
