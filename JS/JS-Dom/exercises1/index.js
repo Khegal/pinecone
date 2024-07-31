@@ -38,7 +38,7 @@ document
   .getElementsByClassName("launchButton")
   .addEventListener("click", function () {
     let element = document.querySelector(".modal.off");
-    element.classList.replace("off", "");
+    element.classList.replace("modal off", "");
   });
 // 👉 TASK 4- Create a function to confirm the launch.
 // It should close the modal and display a success report.

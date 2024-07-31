@@ -1,0 +1,17 @@
+body {
+  margin: 0; /* Ensure no default margin */
+  height: 100vh; /* Set body height to 100% of viewport height */
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  transition: 1s; /* Smooth transition for background color change */
+}
+
+p {
+  margin: 0; /* Reset margin */
+  display: flex; /* Enable flexbox for the paragraph */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+  text-align: center; /* Center text */
+  font-size: 80px; /* Large font size */
+}
