@@ -12,10 +12,10 @@ console.log(document.getElementById("cancelButton").innerHTML);
 
 // MESSAGES
 const successMessage = null;
-console.log(document.getElementsByClassName("report success off"));
+console.log(document.querySelector("report success off"));
 
 const failureMessage = null;
-console.log(document.getElementsByClassName("report failure off"));
+console.log(document.querySelector("report failure off"));
 
 // MODAL
 const modal = null;
