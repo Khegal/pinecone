@@ -57,17 +57,18 @@ const background = () => {
   body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 };
 
-const intervalId = setInterval(background, 4000);
-body.innerHTML = `<p>Hello World<p>`;
+const intervalId = setInterval(background, 2000);
 
+body.innerHTML = `<p class="example">Hello World</p>`;
 const paragraph = body.getElementsByTagName("p")[0];
+
 const typeEffect = (text) => {
   const currentText = paragraph.innerHTML;
   let currentIndex = currentText.length;
 
   const removeInterval = setInterval(() => {
     if (currentIndex > 0) {
-      paragraph.innerHTML = currentText.slice(0, currentIndex - 1);
+      paragraph.innerHTML = currentText.substring(0, currentIndex - 1);
       currentIndex--;
     } else {
       clearInterval(removeInterval);
@@ -80,15 +81,17 @@ const typeNewText = (text) => {
   let index = 0;
   const typingInterval = setInterval(() => {
     if (index < text.length) {
-      paragraph.innerHTML += text[index];
+      paragraph.innerHTML += text.charAt(index);
       index++;
     } else {
-      clearInterval(typeNewText);
+      clearInterval(typingInterval);
     }
-  }, 100);
+  }, 50);
 };
+
 const changeParagraph = () => {
   const arrIndex = Math.floor(Math.random() * array.length);
   typeEffect(array[arrIndex]);
 };
+
 setInterval(changeParagraph, 4000);
