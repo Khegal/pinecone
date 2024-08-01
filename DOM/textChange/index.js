@@ -49,6 +49,7 @@ const array = [
   "Cheerful Spirit",
   "Thankful Days",
 ];
+
 const background = () => {
   const red = Math.floor(Math.random() * 256);
   const green = Math.floor(Math.random() * 256);
@@ -56,19 +57,38 @@ const background = () => {
   body.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
 };
 
-const intervalId = setInterval(background, 2000);
+const intervalId = setInterval(background, 4000);
+body.innerHTML = `<p>Hello World<p>`;
 
-body.innerHTML = `<p class="example">Hello World<p>`;
-const x = body.getElementsByTagName("p");
+const paragraph = body.getElementsByTagName("p")[0];
+const typeEffect = (text) => {
+  const currentText = paragraph.innerHTML;
+  let currentIndex = currentText.length;
 
-const changeParagraph = () => {
-  const paragraph = body.getElementsByTagName("p")[0];
-
-  const arrIndex = Math.floor(Math.random() * array.length);
-  while (paragraph == array[arrIndex]) {
-    arrIndex = Math.floor(Math.random() * array.length);
-    break;
-  }
-  paragraph.innerHTML = array[arrIndex];
+  const removeInterval = setInterval(() => {
+    if (currentIndex > 0) {
+      paragraph.innerHTML = currentText.slice(0, currentIndex - 1);
+      currentIndex--;
+    } else {
+      clearInterval(removeInterval);
+      typeNewText(text);
+    }
+  }, 100);
 };
-changeParagraph = setInterval(changeParagraph, 2000);
+
+const typeNewText = (text) => {
+  let index = 0;
+  const typingInterval = setInterval(() => {
+    if (index < text.length) {
+      paragraph.innerHTML += text[index];
+      index++;
+    } else {
+      clearInterval(typeNewText);
+    }
+  }, 100);
+};
+const changeParagraph = () => {
+  const arrIndex = Math.floor(Math.random() * array.length);
+  typeEffect(array[arrIndex]);
+};
+setInterval(changeParagraph, 4000);
