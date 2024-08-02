@@ -2,6 +2,8 @@ const board = document.querySelector(".board");
 const body = document.getElementsByTagName("body");
 const timer = document.getElementById("timer");
 const scores = document.getElementById("score");
+const restartButton = document.getElementById("restartButton");
+
 const maxWidth = 500;
 
 let rowCount = 2;
@@ -24,6 +26,16 @@ const scoresShow = setInterval(() => {
   scores.innerHTML = "Score: " + score;
 }, 0);
 
+const handleRestartButton = () => {
+  rowCount = 2;
+  columnCount = 2;
+  margin = 100;
+  score = 0;
+  time = 100;
+  isGameActive = true;
+  draw();
+};
+restartButton.addEventListener("click", handleRestartButton);
 const draw = () => {
   if (isGameActive == true) {
     board.innerHTML = "";
@@ -52,7 +64,15 @@ const draw = () => {
 
       board.appendChild(tileEl);
     }
-    if (score % 3 == 1) {
+    console.log(score);
+  }
+};
+
+const handleCorrectClick = () => {
+  if (isGameActive == true) {
+    score++;
+
+    if (score % 3 == 0) {
       columnCount++;
       rowCount++;
 
@@ -60,14 +80,7 @@ const draw = () => {
         margin -= 10;
       }
     }
-    console.log(score);
-  }
-};
-
-const handleCorrectClick = () => {
-  if (isGameActive == true) {
     draw();
-    score++;
   }
 };
 
@@ -81,5 +94,4 @@ const handleWrongClick = () => {
     console.log(time);
   }
 };
-
 draw();
