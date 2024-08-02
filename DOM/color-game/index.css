@@ -36,3 +36,20 @@ body {
   left: 0;
   gap: 80px;
 }
+#gameOver {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+}
+#gameOver.show {
+  top: 0;
+}

@@ -5,13 +5,13 @@ const scores = document.getElementById("score");
 const restartButton = document.getElementById("restartButton");
 
 const maxWidth = 500;
-
 let rowCount = 2;
 let columnCount = 2;
 let margin = 100;
 let score = 0;
 let time = 100;
 let isGameActive = true;
+
 const countDown = setInterval(() => {
   timer.innerHTML = "Time: " + time;
   if (time > 0) {
@@ -26,16 +26,6 @@ const scoresShow = setInterval(() => {
   scores.innerHTML = "Score: " + score;
 }, 0);
 
-const handleRestartButton = () => {
-  rowCount = 2;
-  columnCount = 2;
-  margin = 100;
-  score = 0;
-  time = 100;
-  isGameActive = true;
-  draw();
-};
-restartButton.addEventListener("click", handleRestartButton);
 const draw = () => {
   if (isGameActive == true) {
     board.innerHTML = "";
@@ -44,8 +34,10 @@ const draw = () => {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
+
     for (let i = 0; i < rowCount * columnCount; i++) {
       const tileEl = document.createElement("div");
+
       tileEl.className = "tile";
       tileEl.style.width = `${maxWidth / columnCount}px`;
       tileEl.style.height = `${maxWidth / rowCount}px`;
@@ -71,7 +63,6 @@ const draw = () => {
 const handleCorrectClick = () => {
   if (isGameActive == true) {
     score++;
-
     if (score % 3 == 0) {
       columnCount++;
       rowCount++;
