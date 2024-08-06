@@ -18,6 +18,7 @@ a {
 }
 
 body {
+  height: 100vh;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -25,4 +26,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#tetris {
+  border-top: none;
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(22, 30px);
+  gap: 1px;
+}
+.field {
+  width: 30px;
+  height: 30px;
+}
+#playField {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#spawnField {
+}
+#spawnPoint {
 }
