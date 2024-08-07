@@ -67,7 +67,7 @@ const colors = {
 };
 
 const renderPlayField = () => {
-  tetris.innerHTML = '';
+  tetris.innerHTML = "";
   Array.from({ length: ROWS * COLS }).forEach((_, index) => {
     const field = document.createElement("div");
     field.classList.add("field");
@@ -148,21 +148,19 @@ const switchHandAndHold = () => {
         ON_HAND = NEXT_FIVE_TETROMINOS[0];
         NEXT_FIVE_TETROMINOS.shift();
         fillNextTetrominoes();
-        render()
+        render();
         console.log(HOLD, ON_HAND, NEXT_FIVE_TETROMINOS);
       } else {
-          allowedSwitchLeft--;
-          const temp = HOLD;
-          HOLD = ON_HAND;
-          ON_HAND = temp;
-          render()
-          console.log(allowedSwitchLeft, HOLD, ON_HAND, NEXT_FIVE_TETROMINOS);
-        
+        allowedSwitchLeft--;
+        const temp = HOLD;
+        HOLD = ON_HAND;
+        ON_HAND = temp;
+        render();
+        console.log(allowedSwitchLeft, HOLD, ON_HAND, NEXT_FIVE_TETROMINOS);
       }
     }
   });
 };
-
 
 const drawTetromino = (tetromino) => {
   const fields = document.querySelectorAll("#tetris .field");
@@ -177,12 +175,10 @@ const drawTetromino = (tetromino) => {
 };
 
 const rotate = (martix) => {
-  const N = martix.length-1;
-  const result = martix.map((row,i)=>row.map((val,j) => martix[N-j][i]))
-  return result
-  
-}
-
+  const N = martix.length - 1;
+  const result = martix.map((row, i) => row.map((val, j) => martix[N - j][i]));
+  return result;
+};
 
 const render = () => {
   renderPlayField();
