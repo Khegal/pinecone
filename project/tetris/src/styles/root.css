@@ -45,8 +45,11 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-#spawnField {
+#holdField {
 }
-
-#spawnPoint {
+#hold {
+  display: gird;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(5, 30px);
+  background-color: black;
 }
