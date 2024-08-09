@@ -125,12 +125,6 @@ const rngTetrominos = () => {
   };
 };
 
-const nextFiveTetrominos = () => {
-  for (let i = 0; i < 5; i++) {
-    NEXT_FIVE_TETROMINOS.push(rngTetrominos());
-  }
-};
-
 const fillNextTetrominos = () => {
   while (NEXT_FIVE_TETROMINOS.length < 5) {
     NEXT_FIVE_TETROMINOS.push(rngTetrominos());
@@ -144,12 +138,12 @@ const tetrominoOnHand = () => {
     return;
   }
   fillNextTetrominos();
+  return ON_HAND;
 };
 
 const rotate = (matrix) => {
   const N = matrix.length - 1;
   const result = matrix.map((row, i) => row.map((val, j) => matrix[N - j][i]));
-
   return result;
 };
 
@@ -186,14 +180,18 @@ const drawTetromino = (tetromino) => {
 
 const updateGame = () => {
   if (++frame > 35) {
-    ON_HAND.row++;
-    if (!isValidMove(ON_HAND.matrix, ON_HAND.row, ON_HAND.col)) {
-      ON_HAND.row--;
+    if (isValidMove(ON_HAND.matrix, ON_HAND.row + 1, ON_HAND.col)) {
+      ON_HAND.row++;
+    } else {
+      placeTetromino();
 
+      if (!isValidMove(ON_HAND.matrix, ON_HAND.row, ON_HAND.col)) {
+        gameOver();
+        return;
+      }
       tetrominoOnHand();
-      frame = 0; // Reset frame after placing the tetromino
     }
-    frame = 0; // Reset frame after moving the tetromino
+    frame = 0;
   }
 };
 
@@ -211,21 +209,17 @@ const placeTetromino = () => {
         const targetRow = ON_HAND.row + row;
         const targetCol = ON_HAND.col + col;
 
-        // Check if indices are within bounds
         if (
           targetRow < 0 ||
           targetRow >= playfield.length ||
           targetCol < 0 ||
           targetCol >= playfield[0].length
         ) {
-          console.error("Out of bounds:", targetRow, targetCol);
-          return; // or handle the error
+          return;
         }
 
-        // Check if the target cell is already occupied
         if (playfield[targetRow][targetCol]) {
-          console.error("Cell already occupied:", targetRow, targetCol);
-          return; // or handle the error
+          return;
         }
 
         playfield[targetRow][targetCol] = ON_HAND.name;
@@ -237,74 +231,87 @@ const placeTetromino = () => {
     for (let i = 0; i < ON_HAND.matrix.length - 1; i++) {
       if (playfield[row].every((cell) => cell)) {
         playfield.splice(row, 1);
-
         playfield.unshift(Array(COLS).fill(0));
-
         SCORE += 100;
       }
     }
   }
 
-  allowedSwitchLeft++;
+  allowedSwitchLeft = 1;
+};
+
+const gameOver = () => {
+  isGameActive = false;
+  cancelAnimationFrame(rAF);
+  alert("Game Over!");
 };
 
 const eventHandler = () => {
   playButtonFromDoc.addEventListener("click", () => {
     isGameActive = true;
+    render();
   });
-  document.addEventListener("keydown", (event) => {
-    if (event.keyCode === 67 && allowedSwitchLeft > 0) {
-      if (HOLD === null) {
-        HOLD = ON_HAND;
-        HOLD.row = 0;
-        HOLD.col = 0;
-        frame = 0;
-        allowedSwitchLeft--;
-        tetrominoOnHand();
-      } else {
-        allowedSwitchLeft--;
-        [HOLD, ON_HAND] = [ON_HAND, HOLD];
-        ON_HAND.row = 0;
-        ON_HAND.col = 3;
-        frame = 0;
-        HOLD.row = 0;
-        HOLD.col = 3;
-      }
-    } else {
-      if (event.keyCode === 37 || event.keyCode === 39) {
-        const col = event.keyCode === 37 ? ON_HAND.col - 1 : ON_HAND.col + 1;
 
+  document.addEventListener("keydown", (event) => {
+    if (!isGameActive) return;
+
+    switch (event.keyCode) {
+      case 67:
+        if (allowedSwitchLeft > 0) {
+          if (HOLD === null) {
+            HOLD = ON_HAND;
+            HOLD.row = 0;
+            HOLD.col = 0;
+            frame = 0;
+            allowedSwitchLeft--;
+            tetrominoOnHand();
+          } else {
+            allowedSwitchLeft--;
+            [HOLD, ON_HAND] = [ON_HAND, HOLD];
+            ON_HAND.row = 0;
+            ON_HAND.col = 3;
+            frame = 0;
+          }
+        }
+        break;
+
+      case 37:
+      case 39:
+        const col = event.keyCode === 37 ? ON_HAND.col - 1 : ON_HAND.col + 1;
         if (isValidMove(ON_HAND.matrix, ON_HAND.row, col)) {
           ON_HAND.col = col;
         }
-      } else {
-        if (event.keyCode === 38) {
-          const matrix = rotate(ON_HAND.matrix);
-          if (isValidMove(matrix, ON_HAND.row, ON_HAND.col)) {
-            ON_HAND.matrix = matrix;
-          }
-        } else {
-          if (event.keyCode === 40) {
-            frame += 35;
-          } else {
-            if (event.keyCode === 32) {
-              while (
-                isValidMove(ON_HAND.matrix, ON_HAND.row + 1, ON_HAND.col)
-              ) {
-                ON_HAND.row++;
-              }
-              placeTetromino();
-              tetrominoOnHand();
-              frame = 0;
-            }
-          }
+        break;
+
+      case 38:
+        const matrix = rotate(ON_HAND.matrix);
+        if (isValidMove(matrix, ON_HAND.row, ON_HAND.col)) {
+          ON_HAND.matrix = matrix;
         }
-      }
+        break;
+
+      case 40:
+        if (isValidMove(ON_HAND.matrix, ON_HAND.row + 1, ON_HAND.col)) {
+          ON_HAND.row++;
+          frame = 0;
+        } else {
+          placeTetromino();
+          tetrominoOnHand();
+        }
+        break;
+
+      case 32:
+        while (isValidMove(ON_HAND.matrix, ON_HAND.row + 1, ON_HAND.col)) {
+          ON_HAND.row++;
+        }
+        placeTetromino();
+        tetrominoOnHand();
+        frame = 0;
+        break;
     }
   });
 };
 
-nextFiveTetrominos();
+fillNextTetrominos();
 tetrominoOnHand();
 eventHandler();
-render();
