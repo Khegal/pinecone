@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+}
+.container {
+  border: 1px solid black;
+  margin: 50px auto;
+  width: 1000px;
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  position: absolute;
+  transition: 1s;
+  border-radius: 50%;
+}
+.container:hover .box {
+  transform: translate(-400px, -400px);
+}
+.purple {
+  background-color: purple;
+  transition-property: transform, translate;
+  transition-delay: 0s, 1s;
+}
+.container:hover .purple {
+  transform: translate(0, 400px);
+  translate: 400px;
+}
+.blue {
+  background-color: blue;
+  transition: 1s;
+}
+.container:hover .blue {
+  transition-property: translate, transform, border-radius, background-color;
+  transition-delay: 0s, 1s, 1s, 1.5s;
+  transform: translate(400px, -200px);
+  translate: 0 -200px;
+  border-radius: 0%;
+  background-color: yellow;
+}

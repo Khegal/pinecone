@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+ul,
+ol,
+a {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: rgb(56, 160, 148);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#tetris {
+  display: grid;
+  grid-template-columns: repeat(10, 30px);
+  grid-template-rows: repeat(22, 30px);
+  gap: 1px;
+}
+
+.field {
+  width: 30px;
+  height: 30px;
+}
+
+#playField {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#holdField {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#hold {
+  position: relative;
+  top: 62px;
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(5, 30px);
+  gap: 1px;
+}
+.fields {
+  display: flex;
+  gap: 10px;
+}
+
+#nextFive {
+  position: relative;
+  top: 62px;
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(21, 30px);
+  gap: 1px;
+}
+#nextFiveFieldTetro {
+  background-color: rgba(0, 0, 0, 0.7);
+}
