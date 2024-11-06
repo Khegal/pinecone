@@ -1,0 +1,15 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "express",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "author": ""
+}
