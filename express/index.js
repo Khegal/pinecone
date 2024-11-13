@@ -1,74 +1,96 @@
 import express from "express";
+import * as fs from "fs";
 
+const PORT = 3333;
 const app = express();
-
 app.use(express.json());
 
-const todo = [
+let todos = [
   {
     id: 0,
-    title: "gg",
+    title: "Wake up",
     checked: false,
   },
 ];
 
-app.get("/", (req, res) => {
-  res.send("hello");
-});
+// Read initial todos from file if exists
+if (fs.existsSync("todos.json")) {
+  const data = fs.readFileSync("todos.json", "utf-8");
+  if (data.length > 0) {
+    todos = JSON.parse(data);
+  }
+}
 
-app.get("/bye", (req, res) => {
-  res.send("nuy from express");
-});
-
+// GET all todos
 app.get("/todos", (req, res) => {
-  res.json(todo);
+  if (todos.length === 0) {
+    return res.status(404).json({ error: "No todos found" });
+  }
+
+  res.json(todos);
 });
 
+// POST a new todo
 app.post("/todos", (req, res) => {
-  const input = req.body;
-  const { title } = input;
+  const title = req.body.title;
+  if (!title) return res.status(400).send({ message: "Title is not found" });
 
   const newTodo = {
-    id: todo[todo.length - 1].id + 1,
-    title,
+    id: todos.length > 0 ? todos[todos.length - 1].id + 1 : 1,
+    title: title,
     checked: false,
   };
+  todos.push(newTodo);
 
-  todo.push(newTodo);
-  res.send(newTodo);
+  // Write to file
+  fs.writeFileSync("todos.json", JSON.stringify(todos, null, 2), "utf-8");
+  return res.send(newTodo);
 });
 
-app.delete("/todos", (req, res) => {
-  const id = req.body.id;
-  const index = todo.findIndex((todobyId) => todobyId.id === Number(id));
+// GET a specific todo by ID
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  if (!id) return res.status(400).send({ message: "Id not found!" });
 
-  if (index === -1) {
-    res.status(404).send({ message: "id not found" });
-  } else {
-    todo.splice(index, 1);
-    res.status(200).send(Number(id));
-  }
+  const todo = todos.find((item) => item.id === Number(id));
+  if (!todo) return res.status(404).send({ message: "Todo not found!" });
+
+  return res.send(todo);
 });
 
-app.patch("/todos", (req, res) => {
-  const id = req.body.id;
-  const index = todo.findIndex((todobyId) => todobyId.id === Number(id));
-  if (!id) {
-    res.status(404).send({ message: "id not found in body" });
-  } else {
-    if (index === -1) {
-      res.status(404).send({ message: "id not found" });
-    } else {
-      todo[index] = { id: Number(id), title: todo[index].title, checked: true };
-      res.status(200).send({ message: "checked" });
-    }
-  }
+// DELETE a todo by ID
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  if (!id) return res.status(400).send({ message: "Id not found!" });
+
+  const index = todos.findIndex((item) => item.id === Number(id));
+  if (index === -1) return res.status(404).send({ message: "Todo not found!" });
+
+  const deletedTodo = todos.splice(index, 1);
+
+  // Write updated todos to file
+  fs.writeFileSync("todos.json", JSON.stringify(todos, null, 2), "utf-8");
+  return res.send(deletedTodo[0]);
 });
 
-app.get("/greet", (req, res) => {
-  res.send("hi from express");
+// PUT (update) a todo by ID
+app.put("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  if (!id) return res.status(400).send({ message: "Id not found!" });
+
+  const todo = todos.find((item) => item.id === Number(id));
+  if (!todo) return res.status(404).send({ message: "Todo not found!" });
+
+  const { title, checked } = req.body;
+  if (title !== undefined) todo.title = title;
+  if (checked !== undefined) todo.checked = checked;
+
+  // Write updated todos to file
+  fs.writeFileSync("todos.json", JSON.stringify(todos, null, 2), "utf-8");
+  return res.send(todo);
 });
 
-app.listen(3000, () => {
-  console.log("running on my assc");
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
